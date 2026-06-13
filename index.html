@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>더마크월드 주주 전략회의 일정 투표</title>
+    <meta
+      name="description"
+      content="더마크월드 주주 상반기 결산 및 재도약 전략회의 식사 일정 투표"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="더마크월드 주주 전략회의 일정 투표" />
+    <meta
+      property="og:url"
+      content="https://midasbook.github.io/themarkworld-july-shareholder-poll/"
+    />
+    <meta
+      property="og:description"
+      content="7월 1일부터 7월 19일까지 점심, 저녁 식사 자리 중 참석 가능한 일정을 기명으로 투표해 주세요."
+    />
+    <meta
+      property="og:image"
+      content="https://midasbook.github.io/themarkworld-july-shareholder-poll/assets/og-share.png"
+    />
+    <meta property="og:image:secure_url" content="https://midasbook.github.io/themarkworld-july-shareholder-poll/assets/og-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="더마크월드 상반기 결산 및 재도약 전략회의 주주 식사 일정 투표" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="더마크월드 주주 전략회의 일정 투표" />
+    <meta
+      name="twitter:description"
+      content="7월 1일부터 7월 19일까지 점심, 저녁 식사 자리 중 참석 가능한 일정을 기명으로 투표해 주세요."
+    />
+    <meta
+      name="twitter:image"
+      content="https://midasbook.github.io/themarkworld-july-shareholder-poll/assets/og-share.png"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="더마크월드 일정 투표 홈">
+        <img src="assets/logo.png" alt="더마크월드" />
+        <span>더마크월드</span>
+      </a>
+      <nav class="top-nav" aria-label="상단 메뉴">
+        <a href="#vote">일정 투표</a>
+        <a href="#publicResults">결과 확인</a>
+        <a href="#opinion">의견 남기기</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Shareholder Strategy Dinner Poll</p>
+          <h1>상반기 결산 및 재도약 전략회의</h1>
+          <p class="lead">
+            2026년 7월 1일(수)부터 7월 19일(일)까지 가능한 점심, 저녁 식사 일정을
+            기명으로 선택해 주세요. 투표 후 공개 결과를 바로 확인할 수 있습니다.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#vote">참석 가능 일정 투표</a>
+            <a class="button secondary" href="#publicResults">현재 결과 보기</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="모임 정보">
+          <div>
+            <span class="panel-label">대상</span>
+            <strong>더마크월드 주주</strong>
+          </div>
+          <div>
+            <span class="panel-label">기간</span>
+            <strong>7/1 - 7/19</strong>
+          </div>
+          <div>
+            <span class="panel-label">시간대</span>
+            <strong>점심 또는 저녁</strong>
+          </div>
+          <div>
+            <span class="panel-label">방식</span>
+            <strong>기명 투표</strong>
+          </div>
+        </aside>
+      </section>
+
+      <section class="notice-band" aria-label="투표 안내">
+        <div>
+          <p class="eyebrow">Voting Guide</p>
+          <h2>가능한 일정을 모두 선택해 주세요.</h2>
+        </div>
+        <p>
+          여러 날짜를 선택할수록 최종 일정을 정하기 쉬워집니다. 제출 후 같은 이름으로 다시
+          제출하면 기존 응답을 최신 내용으로 갱신합니다.
+        </p>
+      </section>
+
+      <section class="form-layout" id="vote">
+        <form class="vote-form" id="voteForm">
+          <div class="section-heading">
+            <p class="eyebrow">Step 1</p>
+            <h2>기본 정보</h2>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>성함</span>
+              <input id="name" name="name" type="text" autocomplete="name" required placeholder="예: 홍길동" />
+            </label>
+            <label class="field">
+              <span>연락처</span>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="선택 입력" />
+            </label>
+          </div>
+
+          <div class="section-heading compact">
+            <p class="eyebrow">Step 2</p>
+            <h2>참석 가능한 일정</h2>
+          </div>
+          <div class="toolbar" aria-label="일정 선택 도구">
+            <button class="tool-button" type="button" id="selectAllLunch">점심 전체</button>
+            <button class="tool-button" type="button" id="selectAllDinner">저녁 전체</button>
+            <button class="tool-button" type="button" id="clearDates">선택 해제</button>
+          </div>
+          <div class="slot-grid" id="slotGrid" aria-label="7월 참석 가능 일정"></div>
+
+          <div class="section-heading compact" id="opinion">
+            <p class="eyebrow">Step 3</p>
+            <h2>모임 활동 및 회의 주제 의견</h2>
+          </div>
+
+          <div class="field-stack">
+            <fieldset class="activity-group">
+              <legend>선호하는 모임 활동</legend>
+              <label><input type="checkbox" name="activities" value="상반기 성과 공유" /> 상반기 성과 공유</label>
+              <label><input type="checkbox" name="activities" value="재도약 전략 토론" /> 재도약 전략 토론</label>
+              <label><input type="checkbox" name="activities" value="식사와 네트워킹" /> 식사와 네트워킹</label>
+              <label><input type="checkbox" name="activities" value="사업 아이디어 브레인스토밍" /> 사업 아이디어 브레인스토밍</label>
+            </fieldset>
+
+            <label class="field">
+              <span>논의하고 싶은 회의 주제</span>
+              <textarea
+                id="topics"
+                name="topics"
+                rows="4"
+                placeholder="예: 하반기 매출 목표, 신규 사업 방향, 조직 운영 방식 등"
+              ></textarea>
+            </label>
+
+            <label class="field">
+              <span>기타 의견</span>
+              <textarea
+                id="memo"
+                name="memo"
+                rows="4"
+                placeholder="장소, 메뉴, 진행 방식 등 자유롭게 남겨주세요."
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="submit-row">
+            <p id="formMessage" role="status" aria-live="polite"></p>
+            <button class="button primary" type="submit">투표 제출하고 결과 보기</button>
+          </div>
+        </form>
+
+        <aside class="side-summary" aria-label="투표 현황 요약">
+          <div class="summary-card">
+            <span class="panel-label">현재 제출</span>
+            <strong id="responseCount">0명</strong>
+            <p>이 페이지에 저장된 응답 기준입니다.</p>
+          </div>
+          <div class="summary-card">
+            <span class="panel-label">가장 많이 선택된 일정</span>
+            <strong id="topSlot">아직 없음</strong>
+            <p>아래 공개 결과에서 상세 현황을 확인할 수 있습니다.</p>
+          </div>
+          <a class="button secondary wide" href="#publicResults">공개 결과 보기</a>
+        </aside>
+      </section>
+
+      <section class="result-panel public-results" id="publicResults" aria-label="공개 투표 결과">
+        <div class="section-heading">
+          <p class="eyebrow">Public Results</p>
+          <h2>투표 결과</h2>
+        </div>
+        <div class="metric-grid">
+          <article class="metric">
+            <span>총 응답자</span>
+            <strong id="publicTotalResponses">0명</strong>
+          </article>
+          <article class="metric">
+            <span>총 선택 수</span>
+            <strong id="publicTotalSelections">0개</strong>
+          </article>
+          <article class="metric">
+            <span>1순위 일정</span>
+            <strong id="publicBestSlot">아직 없음</strong>
+          </article>
+        </div>
+
+        <div class="admin-grid">
+          <article>
+            <div class="section-heading compact-result">
+              <p class="eyebrow">Schedule Ranking</p>
+              <h2>일정별 득표</h2>
+            </div>
+            <div class="result-list" id="publicSlotResults"></div>
+          </article>
+          <article>
+            <div class="section-heading compact-result">
+              <p class="eyebrow">Activities</p>
+              <h2>선호 활동</h2>
+            </div>
+            <div class="result-list" id="publicActivityResults"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="result-panel" aria-label="응답자별 공개 결과">
+        <div class="section-heading">
+          <p class="eyebrow">Named Responses</p>
+          <h2>응답자별 선택 일정</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>성함</th>
+                <th>가능 일정</th>
+                <th>선호 활동</th>
+                <th>회의 주제 및 의견</th>
+              </tr>
+            </thead>
+            <tbody id="publicResponseRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="poll-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
