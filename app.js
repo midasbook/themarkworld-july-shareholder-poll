@@ -14,6 +14,7 @@
   const publicSlotResults = document.querySelector("#publicSlotResults");
   const publicActivityResults = document.querySelector("#publicActivityResults");
   const publicResponseRows = document.querySelector("#publicResponseRows");
+  const apiUrl = window.PollConfig && window.PollConfig.googleAppsScriptUrl;
 
   const activityOptions = [
     "상반기 성과 공유",
@@ -38,8 +39,71 @@
       .join("");
   }
 
-  function renderAll() {
-    const responses = window.PollData.readResponses();
+  async function loadResponses() {
+    if (!apiUrl) {
+      return window.PollData.readResponses();
+    }
+
+    const response = await fetch(`${apiUrl}?action=list`, {
+      method: "GET",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("응답 데이터를 불러오지 못했습니다.");
+    }
+
+    const payload = await response.json();
+    return Array.isArray(payload.responses) ? payload.responses : [];
+  }
+
+  async function saveResponse(nextResponse) {
+    if (!apiUrl) {
+      const responses = window.PollData.readResponses();
+      const existingIndex = responses.findIndex((response) => response.name === nextResponse.name);
+
+      if (existingIndex >= 0) {
+        responses[existingIndex] = nextResponse;
+      } else {
+        responses.push(nextResponse);
+      }
+
+      window.PollData.writeResponses(responses);
+      return;
+    }
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify({
+        action: "upsert",
+        response: nextResponse,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("투표 제출에 실패했습니다.");
+    }
+
+    const payload = await response.json();
+
+    if (!payload.ok) {
+      throw new Error(payload.error || "투표 제출에 실패했습니다.");
+    }
+  }
+
+  async function renderAll() {
+    let responses = [];
+
+    try {
+      responses = await loadResponses();
+    } catch (error) {
+      formMessage.textContent = error.message;
+      responses = window.PollData.readResponses();
+    }
+
     const selections = responses.flatMap((response) => response.slots || []);
     const best = window.PollData.getTopSlot(responses);
 
@@ -137,7 +201,7 @@
     );
   }
 
-  function saveVote(event) {
+  async function saveVote(event) {
     event.preventDefault();
 
     const name = nameInput.value.trim();
@@ -154,10 +218,8 @@
       return;
     }
 
-    const responses = window.PollData.readResponses();
-    const existingIndex = responses.findIndex((response) => response.name === name);
     const nextResponse = {
-      id: existingIndex >= 0 ? responses[existingIndex].id : createId(),
+      id: createId(name),
       name,
       phone: phoneInput.value.trim(),
       slots,
@@ -167,26 +229,21 @@
       submittedAt: new Date().toISOString(),
     };
 
-    if (existingIndex >= 0) {
-      responses[existingIndex] = nextResponse;
-      formMessage.textContent = `${name}님의 응답을 최신 내용으로 갱신했습니다.`;
-    } else {
-      responses.push(nextResponse);
+    try {
+      await saveResponse(nextResponse);
       formMessage.textContent = `${name}님의 투표가 제출되었습니다.`;
+    } catch (error) {
+      formMessage.textContent = error.message;
+      return;
     }
 
-    window.PollData.writeResponses(responses);
     form.reset();
-    renderAll();
+    await renderAll();
     document.querySelector("#publicResults").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function createId() {
-    if (window.crypto && typeof window.crypto.randomUUID === "function") {
-      return window.crypto.randomUUID();
-    }
-
-    return `vote-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  function createId(name) {
+    return name.trim().toLowerCase();
   }
 
   function escapeHtml(value) {
